@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
-
+const ffmpeg = require('fluent-ffmpeg');
 const router = express.Router();
 const filePath = path.join(__dirname, '../data/songs.json');
 
@@ -53,22 +53,33 @@ router.post('/', upload.single('audio'), (req, res) => {
     return res.status(400).json({ error: 'Audio file is required' });
   }
 
-  const host = req.protocol + '://' + req.get('host'); // http://localhost:5000
+  const filePath = path.join(__dirname, '..', 'uploads', file.filename);
 
-  const newSong = {
-    id: Date.now().toString(),
-    title: req.body.title,
-    artist: req.body.artist || '',
-    duration: Number(req.body.duration) || null,
-    cover: req.body.cover || '',
-    audioUrl: `${host}/uploads/${file.filename}` // ✅ To‘liq URL
-  };
+  ffmpeg.ffprobe(filePath, (err, metadata) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error reading audio metadata' });
+    }
 
-  songs.push(newSong);
-  writeSongs(songs);
+    const durationInSeconds = Math.floor(metadata.format.duration); // Yaqinlash
 
-  res.status(201).json(newSong);
+    const host = req.protocol + '://' + req.get('host');
+
+    const newSong = {
+      id: Date.now().toString(),
+      title: req.body.title,
+      artist: req.body.artist || '',
+      duration: durationInSeconds,
+      cover: req.body.cover || '',
+      audioUrl: `${host}/uploads/${file.filename}`
+    };
+
+    songs.push(newSong);
+    writeSongs(songs);
+
+    res.status(201).json(newSong);
+  });
 });
+
 // Update existing song
 router.put('/:id', (req, res) => {
   const songs = readSongs();
