@@ -53,13 +53,15 @@ router.post('/', upload.single('audio'), (req, res) => {
     return res.status(400).json({ error: 'Audio file is required' });
   }
 
+  const host = req.protocol + '://' + req.get('host'); // http://localhost:5000
+
   const newSong = {
     id: Date.now().toString(),
-    title: req.body.title || '',
+    title: req.body.title,
     artist: req.body.artist || '',
     duration: Number(req.body.duration) || null,
     cover: req.body.cover || '',
-    audioUrl: `/uploads/${file.filename}`
+    audioUrl: `${host}/uploads/${file.filename}` // ✅ To‘liq URL
   };
 
   songs.push(newSong);
@@ -67,7 +69,6 @@ router.post('/', upload.single('audio'), (req, res) => {
 
   res.status(201).json(newSong);
 });
-
 // Update existing song
 router.put('/:id', (req, res) => {
   const songs = readSongs();

@@ -1,9 +1,13 @@
 const express = require('express');
 const path = require('path');
+const cors = require("cors")
 const songsRouter = require('./routes/songs'); // manashu joyga o‘zing nom bergan bo‘lishing mumkin
 
 const app = express();
 const PORT = 5000;
+app.use(cors({
+  origin:"*"
+}))
 
 // Middlewares
 app.use(express.json());
