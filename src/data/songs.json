@@ -6,5 +6,29 @@
     "duration": 243,
     "cover": "https://picsum.photos/id/320/290/290",
     "audioUrl": "http://localhost:5000/uploads/1749765742800-Doxxim - Ikki Yil O'tib.mp3"
+  },
+  {
+    "id": "1749809658139",
+    "title": "Ummon Yana san ko'zlarim yumsam ham",
+    "artist": "Ummon",
+    "duration": 243,
+    "cover": "https://picsum.photos/id/320/290/290",
+    "audioUrl": "http://localhost:5000/uploads/1749809657653-Doxxim - Ikki Yil O'tib.mp3"
+  },
+  {
+    "id": "1749809669945",
+    "title": "Ummon Yana san ko'zlarim yumsam ham",
+    "artist": "Ummon",
+    "duration": 243,
+    "cover": "https://picsum.photos/id/320/290/290",
+    "audioUrl": "http://localhost:5000/uploads/1749809669671-Doxxim - Ikki Yil O'tib.mp3"
+  },
+  {
+    "id": "1749811177743",
+    "title": "Abrorbey - Bolalik",
+    "artist": "Abrorbey",
+    "duration": 243,
+    "cover": "https://picsum.photos/id/310/290/290",
+    "audioUrl": "http://localhost:5000/uploads/1749811177466-Doxxim - Ikki Yil O'tib.mp3"
   }
 ]
